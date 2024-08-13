@@ -17,10 +17,24 @@ class CreateBookmarksTableCommand:
 
 
 class AddBookmarkCommand:
-    def execute(self, data):
-        data['date_added'] = datetime.utcnow().isoformat()
+    def execute(self, data, timestamp=None):
+        data['date_added'] = timestamp or datetime.utcnow().isoformat()
         db.add('bookmarks', data)
         return 'Bookmark Added'
+
+
+class ImportGitHubStarsCommand:
+    def execute(self, stars_data_and_timestamp):
+
+        stars_data, timestamp = stars_data_and_timestamp
+
+        for star in stars_data:
+            if timestamp:
+                db.add('bookmarks', star)
+            else:
+                star['date_added'] = datetime.utcnow().isoformat()
+                db.add('bookmarks', star)
+        return 'Stars Imported'
 
 
 class ListBookmarksCommand:
