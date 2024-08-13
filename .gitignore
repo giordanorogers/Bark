@@ -1,4 +1,4 @@
 .idea/
 DEVNOTES.md
-.env
-database/bookmarks.db
+./.env
+database/bookmarks.db.env
