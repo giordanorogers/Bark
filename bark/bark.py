@@ -17,12 +17,7 @@ class Option:
         # Store the prep call information (optional)
         data = self.prep_call() if self.prep_call else None
 
-        if data:
-            # Execute the prep call (optional)
-            message = self.command.execute(data)
-        else:
-            # Execute the Option's command (default)
-            message = self.command.execute()
+        message = self.command.execute(data)
 
         # Print the message returned from sql execution.
         print(message)
